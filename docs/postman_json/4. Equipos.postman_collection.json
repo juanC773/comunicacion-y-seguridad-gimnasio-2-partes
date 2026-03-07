@@ -1,0 +1,113 @@
+{
+  "info": {
+    "_postman_id": "b88cc975-77b1-45f9-b0d4-768ec3d73f05",
+    "name": "4. Equipos",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "35943580"
+  },
+  "item": [
+    {
+      "name": "Health check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{Equipos_url}}/actuator/health",
+          "host": [
+            "{{Equipos_url}}"
+          ],
+          "path": [
+            "actuator",
+            "health"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Listar todos los equipos",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{Equipos_url}}/equipos",
+          "host": [
+            "{{Equipos_url}}"
+          ],
+          "path": [
+            "equipos"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Obtener equipo por id",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{Equipos_url}}/equipos/1",
+          "host": [
+            "{{Equipos_url}}"
+          ],
+          "path": [
+            "equipos",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Agregar nuevo equipo",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"id\": { \"equipoid_value\": \"3\" },\n  \"nombre\": \"Cuerda para saltar\",\n  \"descripcion\": \"Cuerda de velocidad\",\n  \"cantidad\": 30\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{Equipos_url}}/equipos",
+          "host": [
+            "{{Equipos_url}}"
+          ],
+          "path": [
+            "equipos"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Actualizar stock",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "url": {
+          "raw": "{{Equipos_url}}/equipos/1/cantidad",
+          "host": [
+            "{{Equipos_url}}"
+          ],
+          "path": [
+            "equipos",
+            "1",
+            "cantidad"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

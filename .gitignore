@@ -1,0 +1,31 @@
+HELP.md
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+### IDE ###
+.idea
+*.iws
+*.iml
+*.ipr
+.vscode
+.settings
+.springBeans
+.sts4-cache
+.apt_generated
+.classpath
+.factorypath
+.project
+
+### NetBeans ###
+nbproject/private/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+build/
+
+### OS ###
+.DS_Store
+Thumbs.db

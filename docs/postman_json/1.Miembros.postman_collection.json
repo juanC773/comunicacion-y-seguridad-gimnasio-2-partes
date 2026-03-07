@@ -1,0 +1,136 @@
+{
+  "info": {
+    "_postman_id": "2610880f-1b19-46bc-adf2-f3d78bd5b146",
+    "name": "1.Miembros",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "35943580"
+  },
+  "item": [
+    {
+      "name": "Health check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{Miembros_url}}/actuator/health",
+          "host": [
+            "{{Miembros_url}}"
+          ],
+          "path": [
+            "actuator",
+            "health"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Obtener miembros",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{Miembros_url}}/miembros",
+          "host": [
+            "{{Miembros_url}}"
+          ],
+          "path": [
+            "miembros"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Obtener miembor por id",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{Miembros_url}}/miembros/1",
+          "host": [
+            "{{Miembros_url}}"
+          ],
+          "path": [
+            "miembros",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "🌟 ¿Existe y tiene membresía activa? (true/false)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{Miembros_url}}/miembros/1/puede-asistir-clase",
+          "host": [
+            "{{Miembros_url}}"
+          ],
+          "path": [
+            "miembros",
+            "1",
+            "puede-asistir-clase"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Registrar un miembro nuevo",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"id\": { \"miembroid_value\": \"4\" },\r\n  \"nombre\": \"Pedro García\",\r\n  \"email\": { \"email_value\": \"pedro@email.com\" },\r\n  \"fechaInscripcion\": \"2026-02-23\",\r\n  \"membresiaActiva\": true\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{Miembros_url}}/miembros",
+          "host": [
+            "{{Miembros_url}}"
+          ],
+          "path": [
+            "miembros"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Actualizar miembro -",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"id\": { \"miembroid_value\": \"4\" },\r\n  \"nombre\": \"Pedro García updated\",\r\n  \"email\": { \"email_value\": \"pedro@email.com\" },\r\n  \"fechaInscripcion\": \"2026-02-23\",\r\n  \"membresiaActiva\": true\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{Miembros_url}}/miembros/4/email",
+          "host": [
+            "{{Miembros_url}}"
+          ],
+          "path": [
+            "miembros",
+            "4",
+            "email"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

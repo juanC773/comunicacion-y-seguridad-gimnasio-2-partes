@@ -1,0 +1,117 @@
+{
+  "info": {
+    "_postman_id": "b52fc8bc-5152-48a5-b966-56f81dfa427c",
+    "name": "2.Clases",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "35943580"
+  },
+  "item": [
+    {
+      "name": "Health check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{Clases_url}}/actuator/health",
+          "host": [
+            "{{Clases_url}}"
+          ],
+          "path": [
+            "actuator",
+            "health"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Obtener clases y sus miembros",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{Clases_url}}/clases",
+          "host": [
+            "{{Clases_url}}"
+          ],
+          "path": [
+            "clases"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Obtener clases por ID y sus miembros inscritos",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{Clases_url}}/clases/1",
+          "host": [
+            "{{Clases_url}}"
+          ],
+          "path": [
+            "clases",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "🌟programar nueva clase (valida que exista el entrenador)",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"id\": { \"claseid_value\": \"3\" },\r\n  \"nombre\": \"CrossFit Intensivo\",\r\n  \"horario\": \"2026-03-01T10:00:00\",\r\n  \"capacidadMaxima\": 10,\r\n  \"entrenadorId\": { \"entrenadorid_value\": \"1\" }\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{Clases_url}}/clases",
+          "host": [
+            "{{Clases_url}}"
+          ],
+          "path": [
+            "clases"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "🌟Añadir miembros a una clase",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"miembroid_value\": \"3\"\r\n}\r\n\r\n//Probar con miembro value = 1 (se puede inscribir)\r\n//Miembro value = 100 (no existe)\r\n//Miembro value = 3 (membresía inactiva",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{Clases_url}}/clases/3/miembros",
+          "host": [
+            "{{Clases_url}}"
+          ],
+          "path": [
+            "clases",
+            "3",
+            "miembros"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

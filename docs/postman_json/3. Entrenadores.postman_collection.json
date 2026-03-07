@@ -1,0 +1,141 @@
+{
+  "info": {
+    "_postman_id": "28eafdab-5b0b-4531-8508-47ee876e7697",
+    "name": "3. Entrenadores",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "35943580"
+  },
+  "item": [
+    {
+      "name": "Health check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{Entrenadores_url}}/actuator/health",
+          "host": [
+            "{{Entrenadores_url}}"
+          ],
+          "path": [
+            "actuator",
+            "health"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Obtener entrenadores",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{Entrenadores_url}}/entrenadores",
+          "host": [
+            "{{Entrenadores_url}}"
+          ],
+          "path": [
+            "entrenadores"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Obtener entrenador por id",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{Entrenadores_url}}/entrenadores/1",
+          "host": [
+            "{{Entrenadores_url}}"
+          ],
+          "path": [
+            "entrenadores",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "🌟¿Existe el entrenador? (true/false)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{Entrenadores_url}}/entrenadores/1/existe",
+          "host": [
+            "{{Entrenadores_url}}"
+          ],
+          "path": [
+            "entrenadores",
+            "1",
+            "existe"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Agregar entrenador",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"id\": { \"entrenadorid_value\": \"3\" },\r\n  \"nombre\": \"Luis Torres\",\r\n  \"especialidad\": { \"especialidad_value\": \"CrossFit\" }\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{Entrenadores_url}}/entrenadores",
+          "host": [
+            "{{Entrenadores_url}}"
+          ],
+          "path": [
+            "entrenadores"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Actualizar especialidad",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "\"Funcional\"",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{Entrenadores_url}}/entrenadores/3/especialidad",
+          "host": [
+            "{{Entrenadores_url}}"
+          ],
+          "path": [
+            "entrenadores",
+            "3",
+            "especialidad"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
