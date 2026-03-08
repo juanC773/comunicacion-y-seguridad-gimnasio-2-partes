@@ -1,0 +1,507 @@
+{
+  "info": {
+    "name": "Microservicios Gimnasio - Newman",
+    "description": "Colección completa: todos los endpoints, happy path (rol correcto), unhappy path (rol incorrecto 403, sin token 401). Incluye Auth, Health, Miembros, Clases, Entrenadores, Equipos, Notificaciones (y DLQ: simular-pago + pagos-fallidos). Client secret en environment. Ejecutar: newman run <coleccion> -e Gimnasio.postman_environment.json",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "0 - Auth",
+      "item": [
+        {
+          "name": "Token admin1",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Token admin1 - Status 200', function() { pm.response.to.have.status(200); });",
+                  "const json = pm.response.json();",
+                  "pm.test('Tiene access_token', function() { pm.expect(json).to.have.property('access_token'); });",
+                  "if (json.access_token) pm.environment.set('token_admin1', json.access_token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/x-www-form-urlencoded"}],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {"key": "grant_type", "value": "password"},
+                {"key": "client_id", "value": "{{client_id}}"},
+                {"key": "client_secret", "value": "{{client_secret}}"},
+                {"key": "username", "value": "{{admin_username}}"},
+                {"key": "password", "value": "{{admin_password}}"}
+              ]
+            },
+            "url": "{{keycloak_url}}/realms/{{keycloak_realm}}/protocol/openid-connect/token"
+          }
+        },
+        {
+          "name": "Token entrenador1",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Token entrenador1 - Status 200', function() { pm.response.to.have.status(200); });",
+                  "const json = pm.response.json();",
+                  "if (json.access_token) pm.environment.set('token_entrenador1', json.access_token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/x-www-form-urlencoded"}],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {"key": "grant_type", "value": "password"},
+                {"key": "client_id", "value": "{{client_id}}"},
+                {"key": "client_secret", "value": "{{client_secret}}"},
+                {"key": "username", "value": "{{trainer_username}}"},
+                {"key": "password", "value": "{{trainer_password}}"}
+              ]
+            },
+            "url": "{{keycloak_url}}/realms/{{keycloak_realm}}/protocol/openid-connect/token"
+          }
+        },
+        {
+          "name": "Token miembro1",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Token miembro1 - Status 200', function() { pm.response.to.have.status(200); });",
+                  "const json = pm.response.json();",
+                  "if (json.access_token) pm.environment.set('token_miembro1', json.access_token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/x-www-form-urlencoded"}],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {"key": "grant_type", "value": "password"},
+                {"key": "client_id", "value": "{{client_id}}"},
+                {"key": "client_secret", "value": "{{client_secret}}"},
+                {"key": "username", "value": "{{member_username}}"},
+                {"key": "password", "value": "{{member_password}}"}
+              ]
+            },
+            "url": "{{keycloak_url}}/realms/{{keycloak_realm}}/protocol/openid-connect/token"
+          }
+        }
+      ]
+    },
+    {
+      "name": "1 - Sin token (401)",
+      "item": [
+        {
+          "name": "GET /miembros sin token → 401",
+          "event": [{"listen": "test", "script": {"exec": ["pm.test('Sin token - 401', function() { pm.response.to.have.status(401); });"], "type": "text/javascript"}}],
+          "request": {"method": "GET", "url": "{{Miembros_url}}/miembros"}
+        },
+        {
+          "name": "GET /clases sin token → 401",
+          "event": [{"listen": "test", "script": {"exec": ["pm.test('Sin token - 401', function() { pm.response.to.have.status(401); });"], "type": "text/javascript"}}],
+          "request": {"method": "GET", "url": "{{Clases_url}}/clases"}
+        },
+        {
+          "name": "POST /miembros sin token → 401",
+          "event": [{"listen": "test", "script": {"exec": ["pm.test('Sin token - 401', function() { pm.response.to.have.status(401); });"], "type": "text/javascript"}}],
+          "request": {"method": "POST", "header": [{"key": "Content-Type", "value": "application/json"}], "body": {"mode": "raw", "raw": "{\"id\":{\"miembroid_value\":\"97\"},\"nombre\":\"X\",\"email\":{\"email_value\":\"x@x.com\"},\"fechaInscripcion\":\"2026-03-01\",\"membresiaActiva\":true}"}, "url": "{{Miembros_url}}/miembros"}
+        }
+      ]
+    },
+    {
+      "name": "2 - Health",
+      "item": [
+        {
+          "name": "Health Miembros",
+          "event": [{"listen": "test", "script": {"exec": ["pm.test('Status 200', function() { pm.response.to.have.status(200); });", "pm.test('UP', function() { pm.expect(pm.response.json().status).to.eql('UP'); });"], "type": "text/javascript"}}],
+          "request": {"method": "GET", "url": "{{Miembros_url}}/actuator/health"}
+        },
+        {
+          "name": "Health Clases",
+          "event": [{"listen": "test", "script": {"exec": ["pm.test('Status 200', function() { pm.response.to.have.status(200); });"], "type": "text/javascript"}}],
+          "request": {"method": "GET", "url": "{{Clases_url}}/actuator/health"}
+        },
+        {
+          "name": "Health Entrenadores",
+          "event": [{"listen": "test", "script": {"exec": ["pm.test('Status 200', function() { pm.response.to.have.status(200); });"], "type": "text/javascript"}}],
+          "request": {"method": "GET", "url": "{{Entrenadores_url}}/actuator/health"}
+        },
+        {
+          "name": "Health Equipos",
+          "event": [{"listen": "test", "script": {"exec": ["pm.test('Status 200', function() { pm.response.to.have.status(200); });"], "type": "text/javascript"}}],
+          "request": {"method": "GET", "url": "{{Equipos_url}}/actuator/health"}
+        },
+        {
+          "name": "Health Notificaciones",
+          "event": [{"listen": "test", "script": {"exec": ["pm.test('Status 200', function() { pm.response.to.have.status(200); });"], "type": "text/javascript"}}],
+          "request": {"method": "GET", "url": "{{Notificaciones_url}}/actuator/health"}
+        }
+      ]
+    },
+    {
+      "name": "3 - Miembros",
+      "item": [
+        {
+          "name": "GET /miembros/public/status (public)",
+          "event": [{"listen": "test", "script": {"exec": ["pm.test('Status 200', function() { pm.response.to.have.status(200); });"], "type": "text/javascript"}}],
+          "request": {"method": "GET", "url": "{{Miembros_url}}/miembros/public/status"}
+        },
+        {
+          "name": "GET /miembros [ADMIN] happy",
+          "event": [{"listen": "test", "script": {"exec": ["pm.test('Status 200', function() { pm.response.to.have.status(200); });", "pm.test('Array', function() { pm.expect(pm.response.json()).to.be.an('array'); });"], "type": "text/javascript"}}],
+          "request": {"method": "GET", "header": [{"key": "Authorization", "value": "Bearer {{token_admin1}}"}], "url": "{{Miembros_url}}/miembros"}
+        },
+        {
+          "name": "GET /miembros [TRAINER] happy",
+          "event": [{"listen": "test", "script": {"exec": ["pm.test('Status 200', function() { pm.response.to.have.status(200); });"], "type": "text/javascript"}}],
+          "request": {"method": "GET", "header": [{"key": "Authorization", "value": "Bearer {{token_entrenador1}}"}], "url": "{{Miembros_url}}/miembros"}
+        },
+        {
+          "name": "GET /miembros [MEMBER] unhappy 403",
+          "event": [{"listen": "test", "script": {"exec": ["pm.test('MEMBER no puede listar - 403', function() { pm.response.to.have.status(403); });"], "type": "text/javascript"}}],
+          "request": {"method": "GET", "header": [{"key": "Authorization", "value": "Bearer {{token_miembro1}}"}], "url": "{{Miembros_url}}/miembros"}
+        },
+        {
+          "name": "GET /miembros/1 [ADMIN] happy",
+          "event": [{"listen": "test", "script": {"exec": ["pm.test('Status 200', function() { pm.response.to.have.status(200); });"], "type": "text/javascript"}}],
+          "request": {"method": "GET", "header": [{"key": "Authorization", "value": "Bearer {{token_admin1}}"}], "url": "{{Miembros_url}}/miembros/1"}
+        },
+        {
+          "name": "GET /miembros/1 [MEMBER] happy",
+          "event": [{"listen": "test", "script": {"exec": ["pm.test('Status 200', function() { pm.response.to.have.status(200); });"], "type": "text/javascript"}}],
+          "request": {"method": "GET", "header": [{"key": "Authorization", "value": "Bearer {{token_miembro1}}"}], "url": "{{Miembros_url}}/miembros/1"}
+        },
+        {
+          "name": "GET /miembros/1/puede-asistir-clase [MEMBER] happy",
+          "event": [{"listen": "test", "script": {"exec": ["pm.test('Status 200', function() { pm.response.to.have.status(200); });", "pm.test('puedeAsistir', function() { pm.expect(pm.response.json()).to.have.property('puedeAsistir'); });"], "type": "text/javascript"}}],
+          "request": {"method": "GET", "header": [{"key": "Authorization", "value": "Bearer {{token_miembro1}}"}], "url": "{{Miembros_url}}/miembros/1/puede-asistir-clase"}
+        },
+        {
+          "name": "POST /miembros [ADMIN] happy",
+          "event": [{"listen": "test", "script": {"exec": ["pm.test('Status 201 o 200', function() { pm.expect([200, 201]).to.include(pm.response.code); });"], "type": "text/javascript"}}],
+          "request": {
+            "method": "POST",
+            "header": [
+              {"key": "Authorization", "value": "Bearer {{token_admin1}}"},
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": { \"miembroid_value\": \"99\" },\n  \"nombre\": \"Newman Test\",\n  \"email\": { \"email_value\": \"newman@test.com\" },\n  \"fechaInscripcion\": \"2026-03-01\",\n  \"membresiaActiva\": true\n}"
+            },
+            "url": "{{Miembros_url}}/miembros"
+          }
+        },
+        {
+          "name": "POST /miembros [MEMBER] unhappy 403",
+          "event": [{"listen": "test", "script": {"exec": ["pm.test('MEMBER no puede crear - 403', function() { pm.response.to.have.status(403); });"], "type": "text/javascript"}}],
+          "request": {
+            "method": "POST",
+            "header": [
+              {"key": "Authorization", "value": "Bearer {{token_miembro1}}"},
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "body": {"mode": "raw", "raw": "{\"id\":{\"miembroid_value\":\"98\"},\"nombre\":\"X\",\"email\":{\"email_value\":\"x@x.com\"},\"fechaInscripcion\":\"2026-03-01\",\"membresiaActiva\":true}"},
+            "url": "{{Miembros_url}}/miembros"
+          }
+        },
+        {
+          "name": "PUT /miembros/1/email [MEMBER] happy",
+          "event": [{"listen": "test", "script": {"exec": ["pm.test('Status 200', function() { pm.response.to.have.status(200); });"], "type": "text/javascript"}}],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {"key": "Authorization", "value": "Bearer {{token_miembro1}}"},
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "body": {"mode": "raw", "raw": "\"miembro1@test.com\""},
+            "url": "{{Miembros_url}}/miembros/1/email"
+          }
+        }
+      ]
+    },
+    {
+      "name": "4 - Clases",
+      "item": [
+        {
+          "name": "GET /clases/public/status (public)",
+          "event": [{"listen": "test", "script": {"exec": ["pm.test('Status 200', function() { pm.response.to.have.status(200); });"], "type": "text/javascript"}}],
+          "request": {"method": "GET", "url": "{{Clases_url}}/clases/public/status"}
+        },
+        {
+          "name": "GET /clases [ADMIN] happy",
+          "event": [{"listen": "test", "script": {"exec": ["pm.test('Status 200', function() { pm.response.to.have.status(200); });"], "type": "text/javascript"}}],
+          "request": {"method": "GET", "header": [{"key": "Authorization", "value": "Bearer {{token_admin1}}"}], "url": "{{Clases_url}}/clases"}
+        },
+        {
+          "name": "GET /clases [MEMBER] happy",
+          "event": [{"listen": "test", "script": {"exec": ["pm.test('Status 200', function() { pm.response.to.have.status(200); });"], "type": "text/javascript"}}],
+          "request": {"method": "GET", "header": [{"key": "Authorization", "value": "Bearer {{token_miembro1}}"}], "url": "{{Clases_url}}/clases"}
+        },
+        {
+          "name": "GET /clases/1 [ADMIN] happy",
+          "event": [{"listen": "test", "script": {"exec": ["pm.test('Status 200', function() { pm.response.to.have.status(200); });"], "type": "text/javascript"}}],
+          "request": {"method": "GET", "header": [{"key": "Authorization", "value": "Bearer {{token_admin1}}"}], "url": "{{Clases_url}}/clases/1"}
+        },
+        {
+          "name": "POST /clases [ADMIN] happy",
+          "event": [{"listen": "test", "script": {"exec": ["pm.test('Status 201 o 200', function() { pm.expect([200, 201]).to.include(pm.response.code); });"], "type": "text/javascript"}}],
+          "request": {
+            "method": "POST",
+            "header": [
+              {"key": "Authorization", "value": "Bearer {{token_admin1}}"},
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": { \"claseid_value\": \"90\" },\n  \"nombre\": \"Newman Test Class\",\n  \"horario\": \"2026-03-10T10:00:00\",\n  \"capacidadMaxima\": 10,\n  \"entrenadorId\": { \"entrenadorid_value\": \"1\" }\n}"
+            },
+            "url": "{{Clases_url}}/clases"
+          }
+        },
+        {
+          "name": "POST /clases [MEMBER] unhappy 403",
+          "event": [{"listen": "test", "script": {"exec": ["pm.test('MEMBER no puede crear clase - 403', function() { pm.response.to.have.status(403); });"], "type": "text/javascript"}}],
+          "request": {
+            "method": "POST",
+            "header": [
+              {"key": "Authorization", "value": "Bearer {{token_miembro1}}"},
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "body": {"mode": "raw", "raw": "{\"id\":{\"claseid_value\":\"91\"},\"nombre\":\"X\",\"horario\":\"2026-03-10T10:00:00\",\"capacidadMaxima\":5,\"entrenadorId\":{\"entrenadorid_value\":\"1\"}}"},
+            "url": "{{Clases_url}}/clases"
+          }
+        },
+        {
+          "name": "POST /clases/1/miembros [ADMIN] happy",
+          "event": [{"listen": "test", "script": {"exec": ["pm.test('Status 200 o 409 (ya inscrito)', function() { pm.expect([200, 409]).to.include(pm.response.code); });"], "type": "text/javascript"}}],
+          "request": {
+            "method": "POST",
+            "header": [
+              {"key": "Authorization", "value": "Bearer {{token_admin1}}"},
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "body": {"mode": "raw", "raw": "{\"miembroid_value\":\"1\"}"},
+            "url": "{{Clases_url}}/clases/1/miembros"
+          }
+        },
+        {
+          "name": "PUT /clases/1/horario [ADMIN] happy",
+          "event": [{"listen": "test", "script": {"exec": ["pm.test('Status 200', function() { pm.response.to.have.status(200); });"], "type": "text/javascript"}}],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {"key": "Authorization", "value": "Bearer {{token_admin1}}"},
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "body": {"mode": "raw", "raw": "{\"horario\":\"2026-03-01T14:00:00\"}"},
+            "url": "{{Clases_url}}/clases/1/horario"
+          }
+        },
+        {
+          "name": "PUT /clases/1/horario [MEMBER] unhappy 403",
+          "event": [{"listen": "test", "script": {"exec": ["pm.test('MEMBER no puede cambiar horario - 403', function() { pm.response.to.have.status(403); });"], "type": "text/javascript"}}],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {"key": "Authorization", "value": "Bearer {{token_miembro1}}"},
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "body": {"mode": "raw", "raw": "{\"horario\":\"2026-03-01T15:00:00\"}"},
+            "url": "{{Clases_url}}/clases/1/horario"
+          }
+        }
+      ]
+    },
+    {
+      "name": "5 - Entrenadores",
+      "item": [
+        {
+          "name": "GET /entrenadores/public/status (public)",
+          "event": [{"listen": "test", "script": {"exec": ["pm.test('Status 200', function() { pm.response.to.have.status(200); });"], "type": "text/javascript"}}],
+          "request": {"method": "GET", "url": "{{Entrenadores_url}}/entrenadores/public/status"}
+        },
+        {
+          "name": "GET /entrenadores [ADMIN] happy",
+          "event": [{"listen": "test", "script": {"exec": ["pm.test('Status 200', function() { pm.response.to.have.status(200); });"], "type": "text/javascript"}}],
+          "request": {"method": "GET", "header": [{"key": "Authorization", "value": "Bearer {{token_admin1}}"}], "url": "{{Entrenadores_url}}/entrenadores"}
+        },
+        {
+          "name": "GET /entrenadores [MEMBER] happy",
+          "event": [{"listen": "test", "script": {"exec": ["pm.test('Status 200', function() { pm.response.to.have.status(200); });"], "type": "text/javascript"}}],
+          "request": {"method": "GET", "header": [{"key": "Authorization", "value": "Bearer {{token_miembro1}}"}], "url": "{{Entrenadores_url}}/entrenadores"}
+        },
+        {
+          "name": "GET /entrenadores/1/existe (public)",
+          "event": [{"listen": "test", "script": {"exec": ["pm.test('Status 200', function() { pm.response.to.have.status(200); });"], "type": "text/javascript"}}],
+          "request": {"method": "GET", "url": "{{Entrenadores_url}}/entrenadores/1/existe"}
+        },
+        {
+          "name": "POST /entrenadores [ADMIN] happy",
+          "event": [{"listen": "test", "script": {"exec": ["pm.test('Status 201 o 200', function() { pm.expect([200, 201]).to.include(pm.response.code); });"], "type": "text/javascript"}}],
+          "request": {
+            "method": "POST",
+            "header": [
+              {"key": "Authorization", "value": "Bearer {{token_admin1}}"},
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "body": {"mode": "raw", "raw": "{\"id\":{\"entrenadorid_value\":\"90\"},\"nombre\":\"Newman Trainer\",\"especialidad\":{\"especialidad_value\":\"Test\"}}"},
+            "url": "{{Entrenadores_url}}/entrenadores"
+          }
+        },
+        {
+          "name": "POST /entrenadores [MEMBER] unhappy 403",
+          "event": [{"listen": "test", "script": {"exec": ["pm.test('MEMBER no puede crear entrenador - 403', function() { pm.response.to.have.status(403); });"], "type": "text/javascript"}}],
+          "request": {
+            "method": "POST",
+            "header": [
+              {"key": "Authorization", "value": "Bearer {{token_miembro1}}"},
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "body": {"mode": "raw", "raw": "{\"id\":{\"entrenadorid_value\":\"91\"},\"nombre\":\"X\",\"especialidad\":{\"especialidad_value\":\"X\"}}"},
+            "url": "{{Entrenadores_url}}/entrenadores"
+          }
+        },
+        {
+          "name": "PUT /entrenadores/1/especialidad [TRAINER] happy",
+          "event": [{"listen": "test", "script": {"exec": ["pm.test('Status 200', function() { pm.response.to.have.status(200); });"], "type": "text/javascript"}}],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {"key": "Authorization", "value": "Bearer {{token_entrenador1}}"},
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "body": {"mode": "raw", "raw": "\"Funcional\""},
+            "url": "{{Entrenadores_url}}/entrenadores/1/especialidad"
+          }
+        },
+        {
+          "name": "PUT /entrenadores/1/especialidad [MEMBER] unhappy 403",
+          "event": [{"listen": "test", "script": {"exec": ["pm.test('MEMBER no puede actualizar especialidad - 403', function() { pm.response.to.have.status(403); });"], "type": "text/javascript"}}],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {"key": "Authorization", "value": "Bearer {{token_miembro1}}"},
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "body": {"mode": "raw", "raw": "\"X\""},
+            "url": "{{Entrenadores_url}}/entrenadores/1/especialidad"
+          }
+        }
+      ]
+    },
+    {
+      "name": "6 - Equipos",
+      "item": [
+        {
+          "name": "GET /equipos/public/status (public)",
+          "event": [{"listen": "test", "script": {"exec": ["pm.test('Status 200', function() { pm.response.to.have.status(200); });"], "type": "text/javascript"}}],
+          "request": {"method": "GET", "url": "{{Equipos_url}}/equipos/public/status"}
+        },
+        {
+          "name": "GET /equipos [ADMIN] happy",
+          "event": [{"listen": "test", "script": {"exec": ["pm.test('Status 200', function() { pm.response.to.have.status(200); });"], "type": "text/javascript"}}],
+          "request": {"method": "GET", "header": [{"key": "Authorization", "value": "Bearer {{token_admin1}}"}], "url": "{{Equipos_url}}/equipos"}
+        },
+        {
+          "name": "GET /equipos [MEMBER] happy",
+          "event": [{"listen": "test", "script": {"exec": ["pm.test('Status 200', function() { pm.response.to.have.status(200); });"], "type": "text/javascript"}}],
+          "request": {"method": "GET", "header": [{"key": "Authorization", "value": "Bearer {{token_miembro1}}"}], "url": "{{Equipos_url}}/equipos"}
+        },
+        {
+          "name": "POST /equipos [ADMIN] happy",
+          "event": [{"listen": "test", "script": {"exec": ["pm.test('Status 201 o 200', function() { pm.expect([200, 201]).to.include(pm.response.code); });"], "type": "text/javascript"}}],
+          "request": {
+            "method": "POST",
+            "header": [
+              {"key": "Authorization", "value": "Bearer {{token_admin1}}"},
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "body": {"mode": "raw", "raw": "{\"id\":{\"equipoid_value\":\"90\"},\"nombre\":\"Newman Equipo\",\"descripcion\":\"Test\",\"cantidad\":10}"},
+            "url": "{{Equipos_url}}/equipos"
+          }
+        },
+        {
+          "name": "POST /equipos [MEMBER] unhappy 403",
+          "event": [{"listen": "test", "script": {"exec": ["pm.test('MEMBER no puede crear equipo - 403', function() { pm.response.to.have.status(403); });"], "type": "text/javascript"}}],
+          "request": {
+            "method": "POST",
+            "header": [
+              {"key": "Authorization", "value": "Bearer {{token_miembro1}}"},
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "body": {"mode": "raw", "raw": "{\"id\":{\"equipoid_value\":\"91\"},\"nombre\":\"X\",\"descripcion\":\"X\",\"cantidad\":1}"},
+            "url": "{{Equipos_url}}/equipos"
+          }
+        },
+        {
+          "name": "PUT /equipos/1/cantidad [TRAINER] happy",
+          "event": [{"listen": "test", "script": {"exec": ["pm.test('Status 200', function() { pm.response.to.have.status(200); });"], "type": "text/javascript"}}],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {"key": "Authorization", "value": "Bearer {{token_entrenador1}}"},
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "body": {"mode": "raw", "raw": "25"},
+            "url": "{{Equipos_url}}/equipos/1/cantidad"
+          }
+        },
+        {
+          "name": "PUT /equipos/1/cantidad [MEMBER] unhappy 403",
+          "event": [{"listen": "test", "script": {"exec": ["pm.test('MEMBER no puede actualizar cantidad - 403', function() { pm.response.to.have.status(403); });"], "type": "text/javascript"}}],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {"key": "Authorization", "value": "Bearer {{token_miembro1}}"},
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "body": {"mode": "raw", "raw": "99"},
+            "url": "{{Equipos_url}}/equipos/1/cantidad"
+          }
+        }
+      ]
+    },
+    {
+      "name": "7 - Notificaciones (RabbitMQ / DLQ)",
+      "item": [
+        {
+          "name": "GET /notificaciones/public/status",
+          "event": [{"listen": "test", "script": {"exec": ["pm.test('Status 200', function() { pm.response.to.have.status(200); });"], "type": "text/javascript"}}],
+          "request": {"method": "GET", "url": "{{Notificaciones_url}}/notificaciones/public/status"}
+        },
+        {
+          "name": "POST /notificaciones/simular-pago (body → cola → DLQ)",
+          "event": [{"listen": "test", "script": {"exec": ["pm.test('Status 200', function() { pm.response.to.have.status(200); });"], "type": "text/javascript"}}],
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {"mode": "raw", "raw": "{\"miembroId\":\"1\",\"concepto\":\"membresía\",\"monto\":50.00}"},
+            "url": "{{Notificaciones_url}}/notificaciones/simular-pago"
+          }
+        },
+        {
+          "name": "GET /notificaciones/pagos-fallidos (ver mensajes DLQ guardados)",
+          "event": [{"listen": "test", "script": {"exec": ["pm.test('Status 200', function() { pm.response.to.have.status(200); });", "pm.test('Es array', function() { pm.expect(pm.response.json()).to.be.an('array'); });", "pm.test('Hay al menos 1 pago fallido (DLQ)', function() { pm.expect(pm.response.json().length).to.be.at.least(1); });"], "type": "text/javascript"}}],
+          "request": {"method": "GET", "url": "{{Notificaciones_url}}/notificaciones/pagos-fallidos"}
+        }
+      ]
+    }
+  ]
+}

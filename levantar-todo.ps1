@@ -1,4 +1,5 @@
-# Levanta Eureka + 4 microservicios del gimnasio (cada uno en su propia ventana).
+# Levanta Eureka + 5 microservicios del gimnasio (cada uno en su propia ventana).
+# Requiere: RabbitMQ en localhost:5672 (guest/guest)
 # Ejecutar desde la raíz del proyecto: .\levantar-todo.ps1
 
 $root = (Get-Location).Path
@@ -21,4 +22,7 @@ Start-Process powershell -ArgumentList "-NoExit", "-Command", "Set-Location '$ro
 Write-Host "Iniciando Clases (8082)..." -ForegroundColor Cyan
 Start-Process powershell -ArgumentList "-NoExit", "-Command", "Set-Location '$root'; Write-Host 'Clases' -ForegroundColor Yellow; .\microservicio-clases-mcrs\mvnw.cmd -f microservicio-clases-mcrs\pom.xml spring-boot:run"
 
-Write-Host "Listo. Se abrieron 5 ventanas. Espera ~1 minuto y revisa http://localhost:8761" -ForegroundColor Green
+Write-Host "Iniciando Notificaciones (8085)..." -ForegroundColor Cyan
+Start-Process powershell -ArgumentList "-NoExit", "-Command", "Set-Location '$root'; Write-Host 'Notificaciones' -ForegroundColor Yellow; .\microservicio-notificaciones-mcrs\mvnw.cmd -f microservicio-notificaciones-mcrs\pom.xml spring-boot:run"
+
+Write-Host "Listo. Se abrieron 6 ventanas. Espera ~1 minuto y revisa http://localhost:8761. RabbitMQ: localhost:5672" -ForegroundColor Green
