@@ -1,6 +1,6 @@
 # Postman — Endpoints por microservicio
 
-Esta guía documenta **todos los endpoints** de la API: método, URL, **qué roles se necesitan**, **qué enviar en el body** (cuando aplica) y ejemplos. Si un endpoint dispara un evento RabbitMQ, en la columna **Rabbit** se indica el evento/cola y el output esperado (log). Para levantar servicios e infraestructura ver [GUIA-EJECUCION.md](GUIA-EJECUCION.md). Para el orden paso a paso de las pruebas RabbitMQ ver [PRUEBAS-RABBITMQ.md](PRUEBAS-RABBITMQ.md).
+Esta guía documenta **todos los endpoints** de la API: método, URL, **qué roles se necesitan**, **qué enviar en el body** (cuando aplica) y ejemplos. Si un endpoint dispara un evento **RabbitMQ** o **Kafka**, en las columnas **Rabbit** y **Kafka** se indica el evento/cola/topic y el output esperado (log). Para levantar servicios e infraestructura ver [GUIA-EJECUCION.md](GUIA-EJECUCION.md). Pruebas paso a paso: [PRUEBAS-RABBITMQ.md](PRUEBAS-RABBITMQ.md), [PRUEBAS-KAFKA.md](PRUEBAS-KAFKA.md).
 
 ---
 
@@ -46,6 +46,7 @@ Cambia `username` y `password` en la petición de token según el rol con el que
 - **Público:** no requiere token.
 - **ADMIN, TRAINER, MEMBER:** requiere **Authorization: Bearer &lt;token&gt;** y que el usuario tenga **al menos uno** de los roles indicados (dependiendo del endpoint).
 - **Rabbit:** si el endpoint publica o está relacionado con RabbitMQ, se indica la cola/evento y qué esperar (p. ej. en log de Notificaciones). "—" = no aplica.
+- **Kafka:** si el endpoint publica a Kafka, se indica el topic y qué esperar (p. ej. en log de Notificaciones). "—" = no aplica.
 
 ---
 
@@ -92,14 +93,14 @@ Respuesta esperada (200): `{"status":"UP"}` (o similar con detalles).
 
 Salvo indicado, todos los endpoints requieren **Bearer token (JWT)**.
 
-| Método | Endpoint | Roles | Descripción | Body | Rabbit |
-|--------|----------|-------|-------------|------|--------|
-| GET | `/miembros/public/status` | Público | Estado del servicio | — | — |
-| GET | `/miembros` | ADMIN, TRAINER | Listar todos los miembros | — | — |
-| GET | `/miembros/{id}` | ADMIN, TRAINER, MEMBER | Obtener miembro por id | — | — |
-| GET | `/miembros/{id}/puede-asistir-clase` | ADMIN, TRAINER, MEMBER | Usado por Clases: `{ puedeAsistir, razon }` | — | — |
-| POST | `/miembros` | ADMIN, TRAINER | Registrar nuevo miembro | JSON abajo | — |
-| PUT | `/miembros/{id}/email` | ADMIN, TRAINER, MEMBER | Actualizar email | String JSON | — |
+| Método | Endpoint | Roles | Descripción | Body | Rabbit | Kafka |
+|--------|----------|-------|-------------|------|--------|------|
+| GET | `/miembros/public/status` | Público | Estado del servicio | — | — | — |
+| GET | `/miembros` | ADMIN, TRAINER | Listar todos los miembros | — | — | — |
+| GET | `/miembros/{id}` | ADMIN, TRAINER, MEMBER | Obtener miembro por id | — | — | — |
+| GET | `/miembros/{id}/puede-asistir-clase` | ADMIN, TRAINER, MEMBER | Usado por Clases: `{ puedeAsistir, razon }` | — | — | — |
+| POST | `/miembros` | ADMIN, TRAINER | Registrar nuevo miembro | JSON abajo | — | — |
+| PUT | `/miembros/{id}/email` | ADMIN, TRAINER, MEMBER | Actualizar email | String JSON | — | — |
 
 **Body POST /miembros:**
 
@@ -122,14 +123,14 @@ Un string JSON con el nuevo email, p. ej. `"nuevo@email.com"`.
 
 Salvo indicado, todos requieren **Bearer token (JWT)**.
 
-| Método | Endpoint | Roles | Descripción | Body | Rabbit |
-|--------|----------|-------|-------------|------|--------|
-| GET | `/clases/public/status` | Público | Estado del servicio | — | — |
-| GET | `/clases` | ADMIN, TRAINER, MEMBER | Listar todas las clases | — | — |
-| GET | `/clases/{id}` | ADMIN, TRAINER, MEMBER | Obtener clase por id (incl. miembrosInscritos) | — | — |
-| POST | `/clases` | ADMIN, TRAINER | Programar clase (valida entrenador) | JSON abajo | — |
-| POST | `/clases/{claseId}/miembros` | ADMIN, TRAINER, MEMBER | Inscribir miembro (valida en Miembros) | JSON abajo | **Rabbit:** cola `gimnasio.inscripciones`. **Output:** log Notificaciones (8085): *"Nueva inscripción recibida: miembro X en clase..."* |
-| PUT | `/clases/{id}/horario` | ADMIN, TRAINER | Actualizar horario | JSON abajo | **Rabbit:** exchange `gimnasio.eventos` → cola `notificaciones.cambio-horario-clase`. **Output:** log Notificaciones: *"Cambio de horario de clase: ... de ... a ..."* |
+| Método | Endpoint | Roles | Descripción | Body | Rabbit | Kafka |
+|--------|----------|-------|-------------|------|--------|------|
+| GET | `/clases/public/status` | Público | Estado del servicio | — | — | — |
+| GET | `/clases` | ADMIN, TRAINER, MEMBER | Listar todas las clases | — | — | — |
+| GET | `/clases/{id}` | ADMIN, TRAINER, MEMBER | Obtener clase por id (incl. miembrosInscritos) | — | — | — |
+| POST | `/clases` | ADMIN, TRAINER | Programar clase (valida entrenador) | JSON abajo | — | — |
+| POST | `/clases/{claseId}/miembros` | ADMIN, TRAINER, MEMBER | Inscribir miembro (valida en Miembros) | JSON abajo | **Rabbit:** cola `gimnasio.inscripciones`. **Output:** log Notificaciones (8085): *"Nueva inscripción recibida: miembro X en clase..."* | **Kafka:** topic `ocupacion-clases`. **Output:** log Notificaciones: *"[KAFKA] Ocupación actualizada: clase '...' (id) → actual/max"* |
+| PUT | `/clases/{id}/horario` | ADMIN, TRAINER | Actualizar horario | JSON abajo | **Rabbit:** exchange `gimnasio.eventos` → cola `notificaciones.cambio-horario-clase`. **Output:** log Notificaciones: *"Cambio de horario de clase: ... de ... a ..."* | — |
 
 **Body POST /clases:**
 
@@ -169,14 +170,14 @@ Salvo indicado, todos requieren **Bearer token (JWT)**.
 
 ## 3. Entrenadores (puerto 8083)
 
-| Método | Endpoint | Roles | Descripción | Body | Rabbit |
-|--------|----------|-------|-------------|------|--------|
-| GET | `/entrenadores/public/status` | Público | Estado del servicio | — | — |
-| GET | `/entrenadores` | ADMIN, TRAINER, MEMBER | Listar todos | — | — |
-| GET | `/entrenadores/{id}` | ADMIN, TRAINER, MEMBER | Obtener por id | — | — |
-| GET | `/entrenadores/{id}/existe` | **Público** | ¿Existe el entrenador? (true/false). Usado por Clases. | — | — |
-| POST | `/entrenadores` | ADMIN, TRAINER | Agregar entrenador | JSON abajo | — |
-| PUT | `/entrenadores/{id}/especialidad` | ADMIN, TRAINER | Actualizar especialidad | String JSON | — |
+| Método | Endpoint | Roles | Descripción | Body | Rabbit | Kafka |
+|--------|----------|-------|-------------|------|--------|------|
+| GET | `/entrenadores/public/status` | Público | Estado del servicio | — | — | — |
+| GET | `/entrenadores` | ADMIN, TRAINER, MEMBER | Listar todos | — | — | — |
+| GET | `/entrenadores/{id}` | ADMIN, TRAINER, MEMBER | Obtener por id | — | — | — |
+| GET | `/entrenadores/{id}/existe` | **Público** | ¿Existe el entrenador? (true/false). Usado por Clases. | — | — | — |
+| POST | `/entrenadores` | ADMIN, TRAINER | Agregar entrenador | JSON abajo | — | — |
+| PUT | `/entrenadores/{id}/especialidad` | ADMIN, TRAINER | Actualizar especialidad | String JSON | — | — |
 
 **Body POST /entrenadores:**
 
@@ -195,13 +196,13 @@ String JSON, p. ej. `"Funcional"`.
 
 ## 4. Equipos (puerto 8084)
 
-| Método | Endpoint | Roles | Descripción | Body | Rabbit |
-|--------|----------|-------|-------------|------|--------|
-| GET | `/equipos/public/status` | Público | Estado del servicio | — | — |
-| GET | `/equipos` | ADMIN, TRAINER, MEMBER | Listar todos | — | — |
-| GET | `/equipos/{id}` | ADMIN, TRAINER, MEMBER | Obtener por id | — | — |
-| POST | `/equipos` | ADMIN, TRAINER | Agregar equipo | JSON abajo | — |
-| PUT | `/equipos/{id}/cantidad` | ADMIN, TRAINER | Actualizar cantidad | Número (ej. 25) | — |
+| Método | Endpoint | Roles | Descripción | Body | Rabbit | Kafka |
+|--------|----------|-------|-------------|------|--------|------|
+| GET | `/equipos/public/status` | Público | Estado del servicio | — | — | — |
+| GET | `/equipos` | ADMIN, TRAINER, MEMBER | Listar todos | — | — | — |
+| GET | `/equipos/{id}` | ADMIN, TRAINER, MEMBER | Obtener por id | — | — | — |
+| POST | `/equipos` | ADMIN, TRAINER | Agregar equipo | JSON abajo | — | — |
+| PUT | `/equipos/{id}/cantidad` | ADMIN, TRAINER | Actualizar cantidad | Número (ej. 25) | — | — |
 
 **Body POST /equipos:**
 
@@ -223,11 +224,11 @@ Un número, p. ej. `25`.
 
 **Sin JWT** — este servicio no usa Keycloak.
 
-| Método | Endpoint | Roles | Descripción | Body | Rabbit |
-|--------|----------|-------|-------------|------|--------|
-| GET | `/notificaciones/public/status` | Público | Estado del servicio | — | — |
-| GET | `/notificaciones/pagos-fallidos` | Público | Lista pagos que llegaron a la DLQ (en memoria) | — | **Rabbit:** muestra mensajes consumidos de cola `gimnasio.pagos.dlq`. **Output:** JSON con pagos fallidos (miembroId, concepto, monto, timestamps). |
-| POST | `/notificaciones/simular-pago` | Público | Envía mensaje a cola de pagos (para probar DLQ) | JSON opcional abajo | **Rabbit:** publica en `gimnasio.pagos` → falla → DLQ `gimnasio.pagos.dlq`. **Output:** log Notificaciones: *"[PAGOS] Procesando pago..."* y *"[DLQ PAGOS] Mensaje de pago fallido recibido..."* |
+| Método | Endpoint | Roles | Descripción | Body | Rabbit | Kafka |
+|--------|----------|-------|-------------|------|--------|------|
+| GET | `/notificaciones/public/status` | Público | Estado del servicio | — | — | — |
+| GET | `/notificaciones/pagos-fallidos` | Público | Lista pagos que llegaron a la DLQ (en memoria) | — | **Rabbit:** muestra mensajes consumidos de cola `gimnasio.pagos.dlq`. **Output:** JSON con pagos fallidos (miembroId, concepto, monto, timestamps). | — |
+| POST | `/notificaciones/simular-pago` | Público | Envía mensaje a cola de pagos (para probar DLQ) | JSON opcional abajo | **Rabbit:** publica en `gimnasio.pagos` → falla → DLQ `gimnasio.pagos.dlq`. **Output:** log Notificaciones: *"[PAGOS] Procesando pago..."* y *"[DLQ PAGOS] Mensaje de pago fallido recibido..."* | — |
 
 **Body POST /notificaciones/simular-pago** (opcional):
 
@@ -250,8 +251,8 @@ Si no envías body, se usan valores por defecto (miembroId "1", concepto "membre
 3. **Entrenadores (8083):** GET /entrenadores, GET /entrenadores/1, GET /entrenadores/1/existe (sin token), POST (crear), PUT /entrenadores/3/especialidad.
 4. **Miembros (8081):** GET /miembros, GET /miembros/1, POST (crear), PUT /miembros/3/email.
 5. **Equipos (8084):** GET /equipos, GET /equipos/1, POST (crear), PUT /equipos/1/cantidad.
-6. **Clases (8082):** GET /clases, GET /clases/1, POST (crear con entrenadorId 1), POST /clases/1/miembros con body `{"miembroid_value": "1"}` (Rabbit: ver log Notificaciones), PUT /clases/1/horario (Rabbit: ver log cambio horario). Probar errores: miembro 999, miembro con membresía inactiva, entrenadorId inexistente.
-7. **Notificaciones (8085):** GET /notificaciones/public/status, POST /notificaciones/simular-pago (body opcional; Rabbit: ver log [PAGOS] y [DLQ PAGOS]), GET /notificaciones/pagos-fallidos (muestra lo que llegó a la DLQ). Ver [PRUEBAS-RABBITMQ.md](PRUEBAS-RABBITMQ.md) para orden y detalles.
+6. **Clases (8082):** GET /clases, GET /clases/1, POST (crear con entrenadorId 1), POST /clases/1/miembros con body `{"miembroid_value": "1"}` (Rabbit + Kafka: ver log Notificaciones), PUT /clases/1/horario (Rabbit: ver log cambio horario). Probar errores: miembro 999, miembro con membresía inactiva, entrenadorId inexistente.
+7. **Notificaciones (8085):** GET /notificaciones/public/status, POST /notificaciones/simular-pago (body opcional; Rabbit: ver log [PAGOS] y [DLQ PAGOS]), GET /notificaciones/pagos-fallidos (muestra lo que llegó a la DLQ). Ver [PRUEBAS-RABBITMQ.md](PRUEBAS-RABBITMQ.md) y [PRUEBAS-KAFKA.md](PRUEBAS-KAFKA.md) para orden y detalles.
 
 ---
 

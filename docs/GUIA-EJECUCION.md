@@ -27,9 +27,12 @@ Esto levanta:
 |-----------|-------------------------|----------------|-----|
 | **Keycloak**  | http://localhost:8080   | Admin: `admin` / `admin` | Autenticación JWT para la API |
 | **RabbitMQ**  | http://localhost:15672  | `guest` / `guest`        | Colas y mensajería (notificaciones, DLQ) |
+| **Kafka**     | Broker: `localhost:29092` | — | Topic `ocupacion-clases` (Clases → Notificaciones) |
+| **Kafka UI**  | http://localhost:8090   | — | Ver topics, consumers y mensajes |
 
 - **Keycloak:** espera ~30 segundos tras `docker-compose up -d` antes de crear el realm o importar el export.
 - **RabbitMQ:** puerto AMQP 5672 para los microservicios; 15672 para la consola web (ver colas, exchanges).
+- **Kafka:** puerto 29092 para los microservicios; Kafka UI en 8090 para inspeccionar el topic `ocupacion-clases`.
 
 Configuración del realm y clientes en Keycloak: ver [KEYCLOAK-QUE-CREAR.md](KEYCLOAK-QUE-CREAR.md). Importación desde fichero: [KEYCLOAK-EXPORT.md](KEYCLOAK-EXPORT.md).
 
@@ -53,7 +56,7 @@ El script abre **6 ventanas** (PowerShell):
 6. **Notificaciones** (8085)
 
 **Orden importante:** Eureka arranca primero; el script espera 15 s antes de lanzar el resto. Los microservicios se registran en Eureka al iniciar.  
-**Requisito:** RabbitMQ debe estar corriendo (puerto 5672) para que Clases y Notificaciones arranquen bien.
+**Requisitos:** RabbitMQ (5672) y Kafka (29092) deben estar corriendo para que Clases y Notificaciones arranquen bien.
 
 Espera ~1 minuto y comprueba que no haya errores en las ventanas.
 
@@ -116,7 +119,17 @@ Ahí se indica qué peticiones hacer, qué ver en consola (Notificaciones) y en 
 
 ---
 
-## 8. Probar todo con Newman (CLI)
+## 8. Probar Kafka (ocupación de clases)
+
+Pasos concretos en **[PRUEBAS-KAFKA.md](PRUEBAS-KAFKA.md)**:
+
+- Al inscribir un miembro en una clase (POST `/clases/{claseId}/miembros`), Clases publica además un evento de **ocupación** al topic Kafka `ocupacion-clases`. Notificaciones lo consume y escribe en log: *"[KAFKA] Ocupación actualizada: clase '...' (id) → actual/max"*.
+
+Kafka UI en http://localhost:8090 para ver el topic y el consumer group `monitoreo-grupo`.
+
+---
+
+## 9. Probar todo con Newman (CLI)
 
 Colección y environment en la carpeta **postman/**:
 
@@ -152,3 +165,5 @@ La colección obtiene tokens (admin1, entrenador1, miembro1), prueba health, tod
 | 8761    | Eureka                  |
 | 5672    | RabbitMQ (AMQP)         |
 | 15672   | RabbitMQ (consola web)  |
+| 29092   | Kafka (broker)          |
+| 8090    | Kafka UI                |
