@@ -1,5 +1,5 @@
 # Levanta Eureka + 5 microservicios del gimnasio (cada uno en su propia ventana).
-# Requiere: RabbitMQ en localhost:5672 (guest/guest)
+# Requiere: docker-compose up -d  (Keycloak, RabbitMQ, Zookeeper, Kafka, Kafka UI)
 # Ejecutar desde la raíz del proyecto: .\levantar-todo.ps1
 
 $root = (Get-Location).Path
@@ -25,4 +25,8 @@ Start-Process powershell -ArgumentList "-NoExit", "-Command", "Set-Location '$ro
 Write-Host "Iniciando Notificaciones (8085)..." -ForegroundColor Cyan
 Start-Process powershell -ArgumentList "-NoExit", "-Command", "Set-Location '$root'; Write-Host 'Notificaciones' -ForegroundColor Yellow; .\microservicio-notificaciones-mcrs\mvnw.cmd -f microservicio-notificaciones-mcrs\pom.xml spring-boot:run"
 
-Write-Host "Listo. Se abrieron 6 ventanas. Espera ~1 minuto y revisa http://localhost:8761. RabbitMQ: localhost:5672" -ForegroundColor Green
+Write-Host "Listo. Se abrieron 6 ventanas. Espera ~1 minuto y revisa:" -ForegroundColor Green
+Write-Host "  Eureka:      http://localhost:8761" -ForegroundColor Yellow
+Write-Host "  Keycloak:    http://localhost:8080  (admin/admin)" -ForegroundColor Yellow
+Write-Host "  RabbitMQ UI: http://localhost:15672 (guest/guest)" -ForegroundColor Yellow
+Write-Host "  Kafka UI:    http://localhost:8090" -ForegroundColor Yellow

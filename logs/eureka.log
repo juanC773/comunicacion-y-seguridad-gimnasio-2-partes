@@ -1,0 +1,202 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ----------------< co.analisys:servidor-descubrimiento >-----------------
+[INFO] Building servidor-descubrimiento 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] >>> spring-boot:3.3.2:run (default-cli) > test-compile @ servidor-descubrimiento >>>
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ servidor-descubrimiento ---
+[INFO] Copying 1 resource from src/main/resources to target/classes
+[INFO] Copying 0 resource from src/main/resources to target/classes
+[INFO] 
+[INFO] --- compiler:3.13.0:compile (default-compile) @ servidor-descubrimiento ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ servidor-descubrimiento ---
+[INFO] skip non existing resourceDirectory /home/torres/Escritorio/semestre-9/microservicios/taller-gimnasio/comunicacion-y-seguridad-gimnasio-2-partes/servidor-descubrimiento-mcrs/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.13.0:testCompile (default-testCompile) @ servidor-descubrimiento ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] <<< spring-boot:3.3.2:run (default-cli) < test-compile @ servidor-descubrimiento <<<
+[INFO] 
+[INFO] 
+[INFO] --- spring-boot:3.3.2:run (default-cli) @ servidor-descubrimiento ---
+[INFO] Attaching agents: []
+Standard Commons Logging discovery in action with spring-jcl: please remove commons-logging.jar from classpath in order to avoid potential conflicts
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.3.2)
+
+2026-03-16T13:11:46.003-05:00  INFO 163135 --- [servidor-descubrimiento] [           main] c.a.gimnasio.DescubrimientoApplication   : Starting DescubrimientoApplication using Java 17.0.18 with PID 163135 (/home/torres/Escritorio/semestre-9/microservicios/taller-gimnasio/comunicacion-y-seguridad-gimnasio-2-partes/servidor-descubrimiento-mcrs/target/classes started by torres in /home/torres/Escritorio/semestre-9/microservicios/taller-gimnasio/comunicacion-y-seguridad-gimnasio-2-partes/servidor-descubrimiento-mcrs)
+2026-03-16T13:11:46.012-05:00  INFO 163135 --- [servidor-descubrimiento] [           main] c.a.gimnasio.DescubrimientoApplication   : No active profile set, falling back to 1 default profile: "default"
+2026-03-16T13:11:47.654-05:00  INFO 163135 --- [servidor-descubrimiento] [           main] o.s.cloud.context.scope.GenericScope     : BeanFactory id=a456c3a5-01e8-3c33-984c-0ae272ad31a0
+2026-03-16T13:11:47.719-05:00  WARN 163135 --- [servidor-descubrimiento] [           main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.cloud.client.loadbalancer.LoadBalancerAutoConfiguration$DeferringLoadBalancerInterceptorConfig' of type [org.springframework.cloud.client.loadbalancer.LoadBalancerAutoConfiguration$DeferringLoadBalancerInterceptorConfig] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). The currently created BeanPostProcessor [lbRestClientPostProcessor] is declared through a non-static factory method on that class; consider declaring it as static instead.
+2026-03-16T13:11:47.722-05:00  WARN 163135 --- [servidor-descubrimiento] [           main] trationDelegate$BeanPostProcessorChecker : Bean 'deferringLoadBalancerInterceptor' of type [org.springframework.cloud.client.loadbalancer.DeferringLoadBalancerInterceptor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2026-03-16T13:11:48.002-05:00  INFO 163135 --- [servidor-descubrimiento] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8761 (http)
+2026-03-16T13:11:48.015-05:00  INFO 163135 --- [servidor-descubrimiento] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-03-16T13:11:48.015-05:00  INFO 163135 --- [servidor-descubrimiento] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.26]
+2026-03-16T13:11:48.080-05:00  INFO 163135 --- [servidor-descubrimiento] [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-03-16T13:11:48.082-05:00  INFO 163135 --- [servidor-descubrimiento] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1979 ms
+Standard Commons Logging discovery in action with spring-jcl: please remove commons-logging.jar from classpath in order to avoid potential conflicts
+2026-03-16T13:11:48.994-05:00  INFO 163135 --- [servidor-descubrimiento] [           main] c.n.d.provider.DiscoveryJerseyProvider   : Using JSON encoding codec LegacyJacksonJson
+2026-03-16T13:11:48.995-05:00  INFO 163135 --- [servidor-descubrimiento] [           main] c.n.d.provider.DiscoveryJerseyProvider   : Using JSON decoding codec LegacyJacksonJson
+2026-03-16T13:11:49.164-05:00  INFO 163135 --- [servidor-descubrimiento] [           main] c.n.d.provider.DiscoveryJerseyProvider   : Using XML encoding codec XStreamXml
+2026-03-16T13:11:49.164-05:00  INFO 163135 --- [servidor-descubrimiento] [           main] c.n.d.provider.DiscoveryJerseyProvider   : Using XML decoding codec XStreamXml
+2026-03-16T13:11:49.887-05:00  WARN 163135 --- [servidor-descubrimiento] [           main] iguration$LoadBalancerCaffeineWarnLogger : Spring Cloud LoadBalancer is currently working with the default cache. While this cache implementation is useful for development and tests, it's recommended to use Caffeine cache in production.You can switch to using Caffeine cache, by adding it and org.springframework.cache.caffeine.CaffeineCacheManager to the classpath.
+2026-03-16T13:11:49.903-05:00  INFO 163135 --- [servidor-descubrimiento] [           main] o.s.c.n.eureka.InstanceInfoFactory       : Setting initial instance status as: STARTING
+2026-03-16T13:11:49.919-05:00  INFO 163135 --- [servidor-descubrimiento] [           main] com.netflix.discovery.DiscoveryClient    : Initializing Eureka in region us-east-1
+2026-03-16T13:11:49.919-05:00  INFO 163135 --- [servidor-descubrimiento] [           main] com.netflix.discovery.DiscoveryClient    : Client configured to neither register nor query for data.
+2026-03-16T13:11:49.920-05:00  INFO 163135 --- [servidor-descubrimiento] [           main] com.netflix.discovery.DiscoveryClient    : Discovery Client initialized at timestamp 1773684709920 with initial instances count: 0
+2026-03-16T13:11:49.950-05:00  INFO 163135 --- [servidor-descubrimiento] [           main] c.n.eureka.DefaultEurekaServerContext    : Initializing ...
+2026-03-16T13:11:49.952-05:00  INFO 163135 --- [servidor-descubrimiento] [           main] c.n.eureka.cluster.PeerEurekaNodes       : Adding new peer nodes [http://localhost:8761/eureka/]
+2026-03-16T13:11:50.066-05:00  INFO 163135 --- [servidor-descubrimiento] [           main] c.n.d.provider.DiscoveryJerseyProvider   : Using JSON encoding codec LegacyJacksonJson
+2026-03-16T13:11:50.066-05:00  INFO 163135 --- [servidor-descubrimiento] [           main] c.n.d.provider.DiscoveryJerseyProvider   : Using JSON decoding codec LegacyJacksonJson
+2026-03-16T13:11:50.066-05:00  INFO 163135 --- [servidor-descubrimiento] [           main] c.n.d.provider.DiscoveryJerseyProvider   : Using XML encoding codec XStreamXml
+2026-03-16T13:11:50.066-05:00  INFO 163135 --- [servidor-descubrimiento] [           main] c.n.d.provider.DiscoveryJerseyProvider   : Using XML decoding codec XStreamXml
+2026-03-16T13:11:50.109-05:00  INFO 163135 --- [servidor-descubrimiento] [           main] c.n.eureka.cluster.PeerEurekaNodes       : Replica node URL:  http://localhost:8761/eureka/
+2026-03-16T13:11:50.116-05:00  INFO 163135 --- [servidor-descubrimiento] [           main] c.n.e.registry.AbstractInstanceRegistry  : Finished initializing remote region registries. All known remote regions: []
+2026-03-16T13:11:50.116-05:00  INFO 163135 --- [servidor-descubrimiento] [           main] c.n.eureka.DefaultEurekaServerContext    : Initialized
+2026-03-16T13:11:50.126-05:00  INFO 163135 --- [servidor-descubrimiento] [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint beneath base path '/actuator'
+2026-03-16T13:11:50.172-05:00  INFO 163135 --- [servidor-descubrimiento] [           main] o.s.c.n.e.s.EurekaServiceRegistry        : Registering application SERVIDOR-DESCUBRIMIENTO with eureka with status UP
+2026-03-16T13:11:50.183-05:00  INFO 163135 --- [servidor-descubrimiento] [           main] o.s.c.n.e.s.EurekaServiceRegistry        : Unregistering application SERVIDOR-DESCUBRIMIENTO with eureka with status DOWN
+2026-03-16T13:11:50.184-05:00  WARN 163135 --- [servidor-descubrimiento] [           main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
+2026-03-16T13:11:50.184-05:00  INFO 163135 --- [servidor-descubrimiento] [           main] c.n.eureka.DefaultEurekaServerContext    : Shutting down ...
+2026-03-16T13:11:50.185-05:00  INFO 163135 --- [servidor-descubrimiento] [       Thread-9] o.s.c.n.e.server.EurekaServerBootstrap   : isAws returned false
+2026-03-16T13:11:50.186-05:00  INFO 163135 --- [servidor-descubrimiento] [       Thread-9] o.s.c.n.e.server.EurekaServerBootstrap   : Initialized server context
+2026-03-16T13:11:50.186-05:00  INFO 163135 --- [servidor-descubrimiento] [       Thread-9] c.n.e.r.PeerAwareInstanceRegistryImpl    : Got 1 instances from neighboring DS node
+2026-03-16T13:11:50.186-05:00  INFO 163135 --- [servidor-descubrimiento] [       Thread-9] c.n.e.r.PeerAwareInstanceRegistryImpl    : Renew threshold is: 1
+2026-03-16T13:11:50.186-05:00  INFO 163135 --- [servidor-descubrimiento] [       Thread-9] c.n.e.r.PeerAwareInstanceRegistryImpl    : Changing status to UP
+2026-03-16T13:11:50.187-05:00  INFO 163135 --- [servidor-descubrimiento] [           main] c.n.eureka.DefaultEurekaServerContext    : Shut down
+2026-03-16T13:11:50.187-05:00 ERROR 163135 --- [servidor-descubrimiento] [       Thread-9] o.s.c.n.e.server.EurekaServerBootstrap   : Cannot bootstrap eureka server :
+
+java.lang.IllegalStateException: Timer already cancelled.
+	at java.base/java.util.Timer.sched(Timer.java:409) ~[na:na]
+	at java.base/java.util.Timer.schedule(Timer.java:260) ~[na:na]
+	at com.netflix.eureka.registry.AbstractInstanceRegistry.postInit(AbstractInstanceRegistry.java:1226) ~[eureka-core-2.0.3.jar:2.0.3]
+	at com.netflix.eureka.registry.PeerAwareInstanceRegistryImpl.openForTraffic(PeerAwareInstanceRegistryImpl.java:259) ~[eureka-core-2.0.3.jar:2.0.3]
+	at org.springframework.cloud.netflix.eureka.server.InstanceRegistry.openForTraffic(InstanceRegistry.java:77) ~[spring-cloud-netflix-eureka-server-4.1.3.jar:4.1.3]
+	at org.springframework.cloud.netflix.eureka.server.EurekaServerBootstrap.initEurekaServerContext(EurekaServerBootstrap.java:112) ~[spring-cloud-netflix-eureka-server-4.1.3.jar:4.1.3]
+	at org.springframework.cloud.netflix.eureka.server.EurekaServerBootstrap.contextInitialized(EurekaServerBootstrap.java:70) ~[spring-cloud-netflix-eureka-server-4.1.3.jar:4.1.3]
+	at org.springframework.cloud.netflix.eureka.server.EurekaServerInitializerConfiguration.lambda$start$0(EurekaServerInitializerConfiguration.java:67) ~[spring-cloud-netflix-eureka-server-4.1.3.jar:4.1.3]
+	at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
+
+2026-03-16T13:11:50.186-05:00 ERROR 163135 --- [servidor-descubrimiento] [t-Conn-Cleaner2] c.n.d.s.t.j.EurekaJersey3ClientImpl      : Cannot clean connections
+
+java.lang.IllegalStateException: Client instance has been closed.
+	at org.glassfish.jersey.internal.guava.Preconditions.checkState(Preconditions.java:169) ~[jersey-common-3.1.7.jar:na]
+	at org.glassfish.jersey.client.JerseyClient.checkNotClosed(JerseyClient.java:248) ~[jersey-client-3.1.7.jar:na]
+	at org.glassfish.jersey.client.JerseyClient.getConfiguration(JerseyClient.java:363) ~[jersey-client-3.1.7.jar:na]
+	at org.glassfish.jersey.client.JerseyClient.getConfiguration(JerseyClient.java:54) ~[jersey-client-3.1.7.jar:na]
+	at com.netflix.discovery.shared.transport.jersey3.EurekaJersey3ClientImpl$ConnectionCleanerTask.run(EurekaJersey3ClientImpl.java:338) ~[eureka-client-jersey3-2.0.3.jar:2.0.3]
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539) ~[na:na]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) ~[na:na]
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
+
+2026-03-16T13:11:50.12026-03-16T13:11:51.758-05:00  INFO 159597 --- [servidor-descubrimiento] [nio-8761-exec-2] c.n.e.registry.AbstractInstanceRegistry  : Registered instance NOTIFICACIONES-SERVICE/torres-Lenovo.bbrouter:notificaciones-service:8085 with status UP (replication=false)
+2026-03-16T13:11:52.271-05:00  INFO 159597 --- [servidor-descubrimiento] [nio-8761-exec-4] c.n.e.registry.AbstractInstanceRegistry  : Registered instance NOTIFICACIONES-SERVICE/torres-Lenovo.bbrouter:notificaciones-service:8085 with status UP (replication=true)
+2026-03-16T13:11:52.962-05:00  INFO 159597 --- [servidor-descubrimiento] [nio-8761-exec-5] c.n.e.registry.AbstractInstanceRegistry  : Registered instance EQUIPO-SERVICE/torres-Lenovo.bbrouter:equipo-service:8084 with status DOWN (replication=false)
+2026-03-16T13:11:52.969-05:00  INFO 159597 --- [servidor-descubrimiento] [nio-8761-exec-8] c.n.e.registry.AbstractInstanceRegistry  : Registered instance EQUIPO-SERVICE/torres-Lenovo.bbrouter:equipo-service:8084 with status DOWN (replication=false)
+2026-03-16T13:11:52.976-05:00  INFO 159597 --- [servidor-descubrimiento] [io-8761-exec-10] c.n.e.registry.AbstractInstanceRegistry  : Cancelled instance EQUIPO-SERVICE/torres-Lenovo.bbrouter:equipo-service:8084 (replication=false)
+2026-03-16T13:11:52.976-05:00  INFO 159597 --- [servidor-descubrimiento] [nio-8761-exec-9] c.n.e.registry.AbstractInstanceRegistry  : Registered instance ENTRENADOR-SERVICE/torres-Lenovo.bbrouter:entrenador-service:8083 with status DOWN (replication=false)
+2026-03-16T13:11:52.983-05:00  INFO 159597 --- [servidor-descubrimiento] [nio-8761-exec-1] c.n.e.registry.AbstractInstanceRegistry  : Registered instance ENTRENADOR-SERVICE/torres-Lenovo.bbrouter:entrenador-service:8083 with status DOWN (replication=false)
+2026-03-16T13:11:52.990-05:00  INFO 159597 --- [servidor-descubrimiento] [nio-8761-exec-2] c.n.e.registry.AbstractInstanceRegistry  : Cancelled instance ENTRENADOR-SERVICE/torres-Lenovo.bbrouter:entrenador-service:8083 (replication=false)
+2026-03-16T13:11:53.018-05:00  INFO 159597 --- [servidor-descubrimiento] [nio-8761-exec-4] c.n.e.registry.AbstractInstanceRegistry  : Registered instance MIEMBRO-SERVICE/torres-Lenovo.bbrouter:miembro-service:8081 with status DOWN (replication=false)
+2026-03-16T13:11:53.024-05:00  INFO 159597 --- [servidor-descubrimiento] [nio-8761-exec-3] c.n.e.registry.AbstractInstanceRegistry  : Registered instance MIEMBRO-SERVICE/torres-Lenovo.bbrouter:miembro-service:8081 with status DOWN (replication=false)
+2026-03-16T13:11:53.031-05:00  INFO 159597 --- [servidor-descubrimiento] [nio-8761-exec-6] c.n.e.registry.AbstractInstanceRegistry  : Cancelled instance MIEMBRO-SERVICE/torres-Lenovo.bbrouter:miembro-service:8081 (replication=false)
+2026-03-16T13:11:53.484-05:00  INFO 159597 --- [servidor-descubrimiento] [nio-8761-exec-2] c.n.e.registry.AbstractInstanceRegistry  : Registered instance EQUIPO-SERVICE/torres-Lenovo.bbrouter:equipo-service:8084 with status DOWN (replication=true)
+2026-03-16T13:11:53.484-05:00  INFO 159597 --- [servidor-descubrimiento] [nio-8761-exec-2] c.n.e.registry.AbstractInstanceRegistry  : Registered instance ENTRENADOR-SERVICE/torres-Lenovo.bbrouter:entrenador-service:8083 with status DOWN (replication=true)
+2026-03-16T13:11:53.485-05:00  INFO 159597 --- [servidor-descubrimiento] [nio-8761-exec-2] c.n.e.registry.AbstractInstanceRegistry  : Cancelled instance EQUIPO-SERVICE/torres-Lenovo.bbrouter:equipo-service:8084 (replication=true)
+2026-03-16T13:11:53.485-05:00  INFO 159597 --- [servidor-descubrimiento] [nio-8761-exec-2] c.n.e.registry.AbstractInstanceRegistry  : Cancelled instance ENTRENADOR-SERVICE/torres-Lenovo.bbrouter:entrenador-service:8083 (replication=true)
+2026-03-16T13:11:53.485-05:00  INFO 159597 --- [servidor-descubrimiento] [nio-8761-exec-2] c.n.e.registry.AbstractInstanceRegistry  : Registered instance MIEMBRO-SERVICE/torres-Lenovo.bbrouter:miembro-service:8081 with status DOWN (replication=true)
+2026-03-16T13:11:53.485-05:00  INFO 159597 --- [servidor-descubrimiento] [nio-8761-exec-2] c.n.e.registry.AbstractInstanceRegistry  : Cancelled instance MIEMBRO-SERVICE/torres-Lenovo.bbrouter:miembro-service:8081 (replication=true)
+2026-03-16T13:12:07.335-05:00  WARN 159597 --- [servidor-descubrimiento] [nio-8761-exec-4] c.n.e.registry.AbstractInstanceRegistry  : DS: Registry: lease doesn't exist, registering resource: ENTRENADOR-SERVICE - torres-Lenovo.bbrouter:entrenador-service:8083
+2026-03-16T13:12:07.335-05:00  WARN 159597 --- [servidor-descubrimiento] [nio-8761-exec-3] c.n.e.registry.AbstractInstanceRegistry  : DS: Registry: lease doesn't exist, registering resource: EQUIPO-SERVICE - torres-Lenovo.bbrouter:equipo-service:8084
+2026-03-16T13:12:07.335-05:00  WARN 159597 --- [servidor-descubrimiento] [nio-8761-exec-4] c.n.eureka.resources.InstanceResource    : Not Found (Renew): ENTRENADOR-SERVICE - torres-Lenovo.bbrouter:entrenador-service:8083
+2026-03-16T13:12:07.335-05:00  WARN 159597 --- [servidor-descubrimiento] [nio-8761-exec-3] c.n.eureka.resources.InstanceResource    : Not Found (Renew): EQUIPO-SERVICE - torres-Lenovo.bbrouter:equipo-service:8084
+2026-03-16T13:12:07.375-05:00  WARN 159597 --- [servidor-descubrimiento] [nio-8761-exec-7] c.n.e.registry.AbstractInstanceRegistry  : DS: Registry: lease doesn't exist, registering resource: MIEMBRO-SERVICE - torres-Lenovo.bbrouter:miembro-service:8081
+2026-03-16T13:12:07.375-05:00  WARN 159597 --- [servidor-descubrimiento] [nio-8761-exec-7] c.n.eureka.resources.InstanceResource    : Not Found (Renew): MIEMBRO-SERVICE - torres-Lenovo.bbrouter:miembro-service:8081
+2026-03-16T13:12:07.380-05:00  INFO 159597 --- [servidor-descubrimiento] [nio-8761-exec-9] c.n.e.registry.AbstractInstanceRegistry  : Registered instance ENTRENADOR-SERVICE/torres-Lenovo.bbrouter:entrenador-service:8083 with status UP (replication=false)
+2026-03-16T13:12:07.380-05:00  INFO 159597 --- [servidor-descubrimiento] [nio-8761-exec-1] c.n.e.registry.AbstractInstanceRegistry  : Registered instance EQUIPO-SERVICE/torres-Lenovo.bbrouter:equipo-service:8084 with status UP (replication=false)
+2026-03-16T13:12:07.391-05:00  INFO 159597 --- [servidor-descubrimiento] [io-8761-exec-10] c.n.e.registry.AbstractInstanceRegistry  : Registered instance MIEMBRO-SERVICE/torres-Lenovo.bbrouter:miembro-service:8081 with status UP (replication=false)
+2026-03-16T13:12:07.394-05:00  INFO 159597 --- [servidor-descubrimiento] [nio-8761-exec-2] c.n.e.registry.AbstractInstanceRegistry  : Registered instance MIEMBRO-SERVICE/torres-Lenovo.bbrouter:miembro-service:8081 with status UP (replication=false)
+2026-03-16T13:12:07.894-05:00  INFO 159597 --- [servidor-descubrimiento] [nio-8761-exec-6] c.n.e.registry.AbstractInstanceRegistry  : Registered instance ENTRENADOR-SERVICE/torres-Lenovo.bbrouter:entrenador-service:8083 with status UP (replication=true)
+2026-03-16T13:12:07.895-05:00  INFO 159597 --- [servidor-descubrimiento] [nio-8761-exec-6] c.n.e.registry.AbstractInstanceRegistry  : Registered instance EQUIPO-SERVICE/torres-Lenovo.bbrouter:equipo-service:8084 with status UP (replication=true)
+2026-03-16T13:12:07.895-05:00  INFO 159597 --- [servidor-descubrimiento] [nio-8761-exec-6] c.n.e.registry.AbstractInstanceRegistry  : Registered instance MIEMBRO-SERVICE/torres-Lenovo.bbrouter:miembro-service:8081 with status UP (replication=true)
+2026-03-16T13:12:34.070-05:00  INFO 159597 --- [servidor-descubrimiento] [nio-8761-exec-3] c.n.e.registry.AbstractInstanceRegistry  : Registered instance CLASE-SERVICE/torres-Lenovo.bbrouter:clase-service:8082 with status DOWN (replication=false)
+2026-03-16T13:12:34.078-05:00  INFO 159597 --- [servidor-descubrimiento] [nio-8761-exec-4] c.n.e.registry.AbstractInstanceRegistry  : Registered instance CLASE-SERVICE/torres-Lenovo.bbrouter:clase-service:8082 with status DOWN (replication=false)
+2026-03-16T13:12:34.087-05:00  INFO 159597 --- [servidor-descubrimiento] [nio-8761-exec-8] c.n.e.registry.AbstractInstanceRegistry  : Cancelled instance CLASE-SERVICE/torres-Lenovo.bbrouter:clase-service:8082 (replication=false)
+2026-03-16T13:12:34.590-05:00  INFO 159597 --- [servidor-descubrimiento] [nio-8761-exec-1] c.n.e.registry.AbstractInstanceRegistry  : Registered instance CLASE-SERVICE/torres-Lenovo.bbrouter:clase-service:8082 with status DOWN (replication=true)
+2026-03-16T13:12:34.591-05:00  INFO 159597 --- [servidor-descubrimiento] [nio-8761-exec-1] c.n.e.registry.AbstractInstanceRegistry  : Cancelled instance CLASE-SERVICE/torres-Lenovo.bbrouter:clase-service:8082 (replication=true)
+2026-03-16T13:12:42.467-05:00  INFO 159597 --- [servidor-descubrimiento] [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2026-03-16T13:12:48.463-05:00  WARN 159597 --- [servidor-descubrimiento] [nio-8761-exec-9] c.n.e.registry.AbstractInstanceRegistry  : DS: Registry: lease doesn't exist, registering resource: CLASE-SERVICE - torres-Lenovo.bbrouter:clase-service:8082
+2026-03-16T13:12:48.463-05:00  WARN 159597 --- [servidor-descubrimiento] [nio-8761-exec-9] c.n.eureka.resources.InstanceResource    : Not Found (Renew): CLASE-SERVICE - torres-Lenovo.bbrouter:clase-service:8082
+2026-03-16T13:12:48.476-05:00  INFO 159597 --- [servidor-descubrimiento] [nio-8761-exec-7] c.n.e.registry.AbstractInstanceRegistry  : Registered instance CLASE-SERVICE/torres-Lenovo.bbrouter:clase-service:8082 with status UP (replication=false)
+2026-03-16T13:12:48.989-05:00  INFO 159597 --- [servidor-descubrimiento] [nio-8761-exec-2] c.n.e.registry.AbstractInstanceRegistry  : Registered instance CLASE-SERVICE/torres-Lenovo.bbrouter:clase-service:8082 with status UP (replication=true)
+2026-03-16T13:13:42.467-05:00  INFO 159597 --- [servidor-descubrimiento] [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2026-03-16T13:14:42.467-05:00  INFO 159597 --- [servidor-descubrimiento] [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2026-03-16T13:15:42.467-05:00  INFO 159597 --- [servidor-descubrimiento] [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2026-03-16T13:16:42.467-05:00  INFO 159597 --- [servidor-descubrimiento] [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2026-03-16T13:17:42.467-05:00  INFO 159597 --- [servidor-descubrimiento] [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2026-03-16T13:18:42.468-05:00  INFO 159597 --- [servidor-descubrimiento] [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 1ms
+2026-03-16T13:19:42.468-05:00  INFO 159597 --- [servidor-descubrimiento] [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2026-03-16T13:20:42.469-05:00  INFO 159597 --- [servidor-descubrimiento] [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2026-03-16T13:21:42.469-05:00  INFO 159597 --- [servidor-descubrimiento] [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2026-03-16T13:22:42.469-05:00  INFO 159597 --- [servidor-descubrimiento] [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2026-03-16T13:23:42.469-05:00  INFO 159597 --- [servidor-descubrimiento] [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2026-03-16T13:24:42.370-05:00  INFO 159597 --- [servidor-descubrimiento] [hresholdUpdater] c.n.e.r.PeerAwareInstanceRegistryImpl    : Current renewal threshold is : 10
+2026-03-16T13:24:42.470-05:00  INFO 159597 --- [servidor-descubrimiento] [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2026-03-16T13:25:42.470-05:00  INFO 159597 --- [servidor-descubrimiento] [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2026-03-16T13:26:42.470-05:00  INFO 159597 --- [servidor-descubrimiento] [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2026-03-16T13:27:42.471-05:00  INFO 159597 --- [servidor-descubrimiento] [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2026-03-16T13:28:42.471-05:00  INFO 159597 --- [servidor-descubrimiento] [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2026-03-16T13:29:42.471-05:00  INFO 159597 --- [servidor-descubrimiento] [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2026-03-16T13:30:42.471-05:00  INFO 159597 --- [servidor-descubrimiento] [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2026-03-16T13:31:42.471-05:00  INFO 159597 --- [servidor-descubrimiento] [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2026-03-16T13:32:42.471-05:00  INFO 159597 --- [servidor-descubrimiento] [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2026-03-16T13:33:42.471-05:00  INFO 159597 --- [servidor-descubrimiento] [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2026-03-16T13:34:42.472-05:00  INFO 159597 --- [servidor-descubrimiento] [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2026-03-16T13:35:42.472-05:00  INFO 159597 --- [servidor-descubrimiento] [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2026-03-16T13:36:43.584-05:00  INFO 159597 --- [servidor-descubrimiento] [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2026-03-16T13:37:43.584-05:00  INFO 159597 --- [servidor-descubrimiento] [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2026-03-16T13:38:43.584-05:00  INFO 159597 --- [servidor-descubrimiento] [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2026-03-16T13:39:43.481-05:00  INFO 159597 --- [servidor-descubrimiento] [hresholdUpdater] c.n.e.r.PeerAwareInstanceRegistryImpl    : Current renewal threshold is : 10
+2026-03-16T13:39:43.584-05:00  INFO 159597 --- [servidor-descubrimiento] [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2026-03-16T13:40:43.584-05:00  INFO 159597 --- [servidor-descubrimiento] [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2026-03-16T13:41:43.585-05:00  INFO 159597 --- [servidor-descubrimiento] [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2026-03-16T13:42:43.585-05:00  INFO 159597 --- [servidor-descubrimiento] [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2026-03-16T13:43:43.584-05:00  INFO 159597 --- [servidor-descubrimiento] [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2026-03-16T13:44:43.584-05:00  INFO 159597 --- [servidor-descubrimiento] [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2026-03-16T13:45:43.585-05:00  INFO 159597 --- [servidor-descubrimiento] [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2026-03-16T13:46:43.585-05:00  INFO 159597 --- [servidor-descubrimiento] [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2026-03-16T13:47:43.585-05:00  INFO 159597 --- [servidor-descubrimiento] [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2026-03-16T13:48:43.585-05:00  INFO 159597 --- [servidor-descubrimiento] [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2026-03-16T13:49:43.585-05:00  INFO 159597 --- [servidor-descubrimiento] [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2026-03-16T13:50:43.585-05:00  INFO 159597 --- [servidor-descubrimiento] [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2026-03-16T13:51:43.586-05:00  INFO 159597 --- [servidor-descubrimiento] [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2026-03-16T13:52:43.586-05:00  INFO 159597 --- [servidor-descubrimiento] [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2026-03-16T13:53:43.586-05:00  INFO 159597 --- [servidor-descubrimiento] [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2026-03-16T13:54:43.481-05:00  INFO 159597 --- [servidor-descubrimiento] [hresholdUpdater] c.n.e.r.PeerAwareInstanceRegistryImpl    : Current renewal threshold is : 10
+2026-03-16T13:54:43.587-05:00  INFO 159597 --- [servidor-descubrimiento] [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2026-03-16T13:55:43.587-05:00  INFO 159597 --- [servidor-descubrimiento] [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2026-03-16T13:56:43.588-05:00  INFO 159597 --- [servidor-descubrimiento] [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2026-03-16T13:57:43.588-05:00  INFO 159597 --- [servidor-descubrimiento] [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2026-03-16T13:58:43.588-05:00  INFO 159597 --- [servidor-descubrimiento] [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2026-03-16T13:59:43.588-05:00  INFO 159597 --- [servidor-descubrimiento] [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2026-03-16T14:00:43.588-05:00  INFO 159597 --- [servidor-descubrimiento] [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2026-03-16T14:01:43.588-05:00  INFO 159597 --- [servidor-descubrimiento] [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2026-03-16T14:02:43.588-05:00  INFO 159597 --- [servidor-descubrimiento] [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2026-03-16T14:03:43.588-05:00  INFO 159597 --- [servidor-descubrimiento] [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2026-03-16T14:04:43.588-05:00  INFO 159597 --- [servidor-descubrimiento] [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2026-03-16T14:05:43.588-05:00  INFO 159597 --- [servidor-descubrimiento] [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms

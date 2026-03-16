@@ -5,6 +5,8 @@ import co.analisys.gimnasio.event.CambioHorarioClaseEvent;
 import co.analisys.gimnasio.event.EventosGimnasioPublisher;
 import co.analisys.gimnasio.event.InscripcionEvent;
 import co.analisys.gimnasio.event.InscripcionEventPublisher;
+import co.analisys.gimnasio.event.OcupacionClaseEvent;
+import co.analisys.gimnasio.event.OcupacionClaseProducer;
 import co.analisys.gimnasio.exception.EntrenadorNoEncontradoException;
 import co.analisys.gimnasio.exception.MiembroNoPuedeAsistirException;
 import co.analisys.gimnasio.exception.MiembroYaInscritoException;
@@ -33,6 +35,9 @@ public class ClaseService {
 
     @Autowired
     private EventosGimnasioPublisher eventosGimnasioPublisher;
+
+    @Autowired
+    private OcupacionClaseProducer ocupacionClaseProducer;
 
     public Clase obtenerClase(ClaseId id) {
         return claseRepository.findById(id)
@@ -90,6 +95,18 @@ public class ClaseService {
         } catch (Exception e) {
             // La inscripción ya se guardó; no fallar si RabbitMQ no está disponible
             org.slf4j.LoggerFactory.getLogger(ClaseService.class).warn("No se pudo publicar evento de inscripción: {}", e.getMessage());
+        }
+
+        try {
+            OcupacionClaseEvent ocupacionEvent = OcupacionClaseEvent.of(
+                    claseId.getClaseid_value(),
+                    claseGuardada.getNombre(),
+                    claseGuardada.getMiembrosInscritos().size(),
+                    claseGuardada.getCapacidadMaxima()
+            );
+            ocupacionClaseProducer.publicarOcupacion(ocupacionEvent);
+        } catch (Exception e) {
+            org.slf4j.LoggerFactory.getLogger(ClaseService.class).warn("No se pudo publicar evento de ocupación a Kafka: {}", e.getMessage());
         }
 
         return claseGuardada;
