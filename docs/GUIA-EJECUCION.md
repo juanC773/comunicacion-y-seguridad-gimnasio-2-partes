@@ -44,6 +44,10 @@ Desde la **raíz del proyecto**:
 
 ```powershell
 .\levantar-todo.ps1
+  
+   Linux/Mac
+ ./levantar-todo.sh  
+
 ```
 
 El script abre **6 ventanas** (PowerShell):

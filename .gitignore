@@ -17,6 +17,7 @@ target/
 .classpath
 .factorypath
 .project
+.logs
 
 ### NetBeans ###
 nbproject/private/
