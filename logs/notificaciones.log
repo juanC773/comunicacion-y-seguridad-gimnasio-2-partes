@@ -8879,3 +8879,4 @@ Caused by: java.lang.RuntimeException: Simulación de fallo en procesamiento de 
 2026-03-16T14:01:52.532-05:00  INFO 163357 --- [notificaciones-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
 2026-03-16T14:03:36.752-05:00  INFO 163357 --- [notificaciones-service] [ntContainer#1-1] c.a.g.l.InscripcionNotificationListener  : [NOTIFICACIÓN] Nueva inscripción recibida: miembro 1 en clase 'Spinning' (id: 2), horario: 2026-05-01T07:00
 2026-03-16T14:03:36.800-05:00  INFO 163357 --- [notificaciones-service] [ntainer#0-0-C-1] c.a.g.l.OcupacionClaseKafkaListener      : [KAFKA] Ocupación actualizada: clase 'Spinning' (2) → 1/5
+2026-03-16T14:06:52.532-05:00  INFO 163357 --- [notificaciones-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration

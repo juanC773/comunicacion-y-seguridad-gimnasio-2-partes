@@ -200,3 +200,4 @@ java.lang.IllegalStateException: Client instance has been closed.
 2026-03-16T14:03:43.588-05:00  INFO 159597 --- [servidor-descubrimiento] [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
 2026-03-16T14:04:43.588-05:00  INFO 159597 --- [servidor-descubrimiento] [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
 2026-03-16T14:05:43.588-05:00  INFO 159597 --- [servidor-descubrimiento] [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2026-03-16T14:06:43.588-05:00  INFO 159597 --- [servidor-descubrimiento] [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
