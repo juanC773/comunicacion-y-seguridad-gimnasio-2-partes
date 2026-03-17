@@ -31,7 +31,7 @@ Casi todos los endpoints de Miembros, Clases, Entrenadores y Equipos requieren *
 
 ### Usuarios de prueba (según roles)
 
-Si creaste usuarios como en [KEYCLOAK-QUE-CREAR.md](KEYCLOAK-QUE-CREAR.md):
+Si importaste el realm y creaste los usuarios como en [KEYCLOAK-EXPORT.md](KEYCLOAK-EXPORT.md):
 
 | Usuario       | Contraseña | Rol asignado  | Uso típico                          |
 |---------------|------------|---------------|-------------------------------------|

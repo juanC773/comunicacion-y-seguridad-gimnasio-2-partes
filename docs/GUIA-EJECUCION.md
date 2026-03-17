@@ -27,20 +27,20 @@ Esto levanta:
 |-----------|-------------------------|----------------|-----|
 | **Keycloak**  | http://localhost:8080   | Admin: `admin` / `admin` | Autenticación JWT para la API |
 | **RabbitMQ**  | http://localhost:15672  | `guest` / `guest`        | Colas y mensajería (notificaciones, DLQ) |
-| **Kafka**     | Broker: `localhost:29092` | — | Topic `ocupacion-clases` (Clases → Notificaciones) |
+| **Kafka**     |- | — | Topic `ocupacion-clases` (Clases → Notificaciones) |
 | **Kafka UI**  | http://localhost:8090   | — | Ver topics, consumers y mensajes |
 
 - **Keycloak:** espera ~30 segundos tras `docker-compose up -d` antes de crear el realm o importar el export.
 - **RabbitMQ:** puerto AMQP 5672 para los microservicios; 15672 para la consola web (ver colas, exchanges).
 - **Kafka:** puerto 29092 para los microservicios; Kafka UI en 8090 para inspeccionar el topic `ocupacion-clases`.
 
-Configuración del realm y clientes en Keycloak: ver [KEYCLOAK-QUE-CREAR.md](KEYCLOAK-QUE-CREAR.md). Importación desde fichero: [KEYCLOAK-EXPORT.md](KEYCLOAK-EXPORT.md).
+Importación del realm y creación de usuarios en Keycloak: ver [KEYCLOAK-EXPORT.md](KEYCLOAK-EXPORT.md).
 
 ---
 
 ## 3. Levantar Eureka y microservicios
 
-Desde la **raíz del proyecto**:
+Desde la **raíz del proyecto** usar ps1 o sh según el sistema operativo:
 
 ```powershell
 .\levantar-todo.ps1

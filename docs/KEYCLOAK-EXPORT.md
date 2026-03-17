@@ -1,41 +1,66 @@
-# Keycloak — Importar el realm del gimnasio
+# Keycloak — Importar realm y usuarios
 
-La configuración de Keycloak para este proyecto se hace **importando** el archivo de export del realm. No es necesario crear nada a mano.
-
----
-
-## Archivo a importar
-
-- **`docs/realm-export-gimnasio.json`**
+En Keycloak hay que **importar** el realm y **crear los usuarios de prueba** (el export no los incluye). Si prefieres no usar el export, más abajo se explica cómo configurar todo a mano.
 
 ---
 
-## Qué contiene ese JSON
+## 1. Importar el realm
 
-El archivo es un export del realm **gimnasio** e incluye:
+1. Keycloak levantado (p. ej. `docker-compose up -d`) en http://localhost:8080.
+2. Consola de administración: usuario `admin`, contraseña `admin`.
+3. Desplegable superior izquierdo: realm **master**.
+4. Menú izquierdo: **Realm settings** → pestaña **Action** → **Import**.
+5. Selecciona el archivo **`docs/realm-export-gimnasio.json`**.
+6. Opciones: **If a realm exists** → Skip o Overwrite. **If a resource exists** → Skip o Overwrite. Pulsa **Import**.
+
+El realm **gimnasio** quedará creado con clientes, roles y configuración. Los **usuarios no vienen en el export**, hay que crearlos a continuación.
+
+---
+
+## 2. Crear los usuarios de prueba
+
+El archivo `realm-export-gimnasio.json` **no incluye usuarios**. Crea estos tres en el realm `gimnasio`:
+
+| Usuario      | Contraseña | Rol a asignar |
+|--------------|------------|----------------|
+| `admin1`     | `password` | **ADMIN** (realm role `ROLE_ADMIN`) |
+| `entrenador1`| `password` | **TRAINER** (realm role `ROLE_TRAINER`) |
+| `miembro1`   | `password` | **MEMBER** (realm role `ROLE_MEMBER`) |
+
+**Pasos por usuario:**
+
+1. En el realm **gimnasio**: **Users** → **Add user**.
+2. **Username:** el de la tabla (ej. `admin1`). **Create**.
+3. Pestaña **Credentials**: **Set password** → contraseña `password`, desmarca *Temporary* si no quieres que pida cambio.
+4. Pestaña **Role mapping**: **Assign role** → filtra por realm roles → asigna el rol correspondiente (`ROLE_ADMIN`, `ROLE_TRAINER` o `ROLE_MEMBER`).
+
+Repite para `entrenador1` y `miembro1`. Con eso puedes obtener tokens y probar la API según [EndPoints-y-autorizacion.md](EndPoints-y-autorizacion.md).
+
+**Client secret:** Al importar (o crear) el realm, Keycloak puede generar un **client secret** distinto para el cliente `clase-service`. Si usas Postman/Newman, actualiza la variable `client_secret` en **`postman/Gimnasio.postman_environment.json`** con el valor que veas en Keycloak (Clients → clase-service → Credentials). Ver [postman/README-Newman.md](../postman/README-Newman.md).
+
+---
+
+## 3. Qué trae el export (realm-export-gimnasio.json)
 
 | Elemento | Contenido |
-|----------|------------|
-| **Realm** | `gimnasio` (configuración del realm, tiempos de sesión, etc.) |
-| **Roles de realm** | `ROLE_ADMIN`, `ROLE_TRAINER`, `ROLE_MEMBER` y roles por defecto (`default-roles-gimnasio`, `offline_access`, `uma_authorization`) |
-| **Clientes** | `clase-service`, `miembro-service`, `entrenador-service`, `equipo-service` (cada uno con client secret, Direct access grants habilitado para obtener token con usuario/contraseña), más los clientes estándar de Keycloak (`account`, `account-console`, `admin-cli`, `broker`, `realm-management`, `security-admin-console`) |
-| **Usuarios** | Cuentas de servicio de cada cliente y usuarios de prueba `admin1`, `entrenador1`, `miembro1` (todos con contraseña `password`) |
-
-Los **client secrets** de los cuatro servicios están en el export; los microservicios y el environment de Postman/Newman ya están configurados con los mismos valores en sus `application.properties` y en las variables de entorno.
+|---------|-----------|
+| **Realm** | `gimnasio` (configuración, tiempos de sesión, etc.) |
+| **Roles de realm** | `ROLE_ADMIN`, `ROLE_TRAINER`, `ROLE_MEMBER` y roles por defecto |
+| **Clientes** | `clase-service`, `miembro-service`, `entrenador-service`, `equipo-service` (client authentication ON, Direct access grants). Los client secrets pueden variar al importar en otro Keycloak. |
+| **Usuarios** | No incluidos; hay que crear `admin1`, `entrenador1`, `miembro1` como en la sección 2. |
 
 ---
 
-## Cómo importar en Keycloak
+## 4. Si quieres configurar todo a mano (sin importar)
 
-1. **Keycloak** debe estar levantado (por ejemplo con `docker-compose up -d`) y accesible en http://localhost:8080.
-2. Inicia sesión en la **consola de administración** (usuario `admin`, contraseña `admin`).
-3. Desplegable superior izquierdo: elige el realm **master**.
-4. Menú izquierdo: **Realm settings**.
-5. Pestaña **Action** (arriba a la derecha) → **Import**.
-6. **Browse** y selecciona el fichero **`docs/realm-export-gimnasio.json`**.
-7. Revisa las opciones de importación:
-   - **If a realm exists:** **Skip** o **Overwrite** según quieras conservar o reemplazar un realm `gimnasio` existente.
-   - **If a resource exists:** **Skip** o **Overwrite** según prefieras.
-8. Pulsa **Import**.
+Si no usas el JSON y creas el realm desde cero:
 
-Tras la importación, el realm **gimnasio** aparecerá en el desplegable de realms. Entra en él y comprueba en **Clients** y **Realm roles** que están los clientes y roles anteriores. A partir de ahí puedes obtener un token (por ejemplo con el cliente `clase-service`) y probar la API tal como se indica en [EndPoints-y-autorizacion.md](EndPoints-y-autorizacion.md).
+- **Realm:** nombre `gimnasio`.
+- **Roles de realm:** `ROLE_ADMIN`, `ROLE_TRAINER`, `ROLE_MEMBER` (el backend puede mapear también `ADMIN`, `TRAINER`, `MEMBER`).
+- **Clientes:** `clase-service`, `miembro-service`, `entrenador-service`, `equipo-service`. En cada uno:
+  - **Client authentication:** ON.
+  - **Direct access grants:** ON.
+  - En **Credentials** copia el client secret; los microservicios lo usan en `application.properties` y Postman en el environment.
+- **Usuarios:** `admin1`, `entrenador1`, `miembro1` con contraseña `password` y asignar a cada uno su rol en **Role mapping** (ADMIN, TRAINER, MEMBER respectivamente).
+
+Para obtener token y probar: [EndPoints-y-autorizacion.md](EndPoints-y-autorizacion.md).
